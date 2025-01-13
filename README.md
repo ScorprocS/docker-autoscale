@@ -28,7 +28,7 @@ Run
 ./install-autoscale.sh
 ```
 
-### Configure env in etc/docker-autoscale
+### Configure env in /etc/docker-autoscale
 Creates as many env file as you need. One per application.
 ### Uninstall
 ```
