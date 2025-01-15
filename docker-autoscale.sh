@@ -92,7 +92,7 @@ get_avg_memory() {
 # Function to start the next stopped container
 start_next_container() {
     local pattern=$(get_container_pattern)
-    STOPPED_CONTAINER=$(docker ps -a --format '{{.Names}}' --filter=status=exited | grep -E "$pattern" | head -1)
+    STOPPED_CONTAINER=$(docker ps -a --format '{{.Names}}' --filter=status=exited | grep -E "$pattern" | sort |  head -1)
    echo "$STOPPED_CONTAINER"
    if [ ! -z "$STOPPED_CONTAINER" ]; then
         echo "Starting container: $STOPPED_CONTAINER"
@@ -139,6 +139,13 @@ while true; do
     echo "Running containers: $RUNNING_COUNT/$TOTAL_COUNT"
     echo "Average CPU usage: $CPU_AVG%"
     echo "Average memory usage: $MEM_AVG%"
+
+    # check if al required instance are running and if not start the missing one
+    if [ "$RUNNING_COUNT" -lt "$MIN_INSTANCES" ]; then
+            echo "There is some required instances that are not running. Starting the missing one ..."
+            start_next_container
+    fi
+
 
     # Scale up condition
     if [ "$CPU_AVG" -gt "$CPU_HIGH_THRESHOLD" ] || \
