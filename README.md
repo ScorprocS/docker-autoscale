@@ -4,6 +4,22 @@ Before running it all the container instance must be created before the script s
 The script will start you instance according to your running container cpu and memory usage. 
 If the average is upper the max threshold it will start the next new instance. If the cpu and memory average are lower than the minimum threshold it will stop a container.
 
+## Setup max cpu and max memory usage to your container
+With docker run
+```
+docker run ... --cpus=1 --memory=2g 
+         
+```
+With docker-compose
+```
+services:
+  deploy:
+      resources:
+        limits:
+          cpus: '1'           # Adjust based on server capacity
+          memory: '2000M'         # Adjust based on server capacity
+```
+
 ## Run the script 
 ### Edit file docker-autoscale.env
 Replace with your requirements
@@ -28,7 +44,7 @@ Run
 ./install-autoscale.sh
 ```
 
-### Configure env in etc/docker-autoscale
+### Configure env in /etc/docker-autoscale
 Creates as many env file as you need. One per application.
 ### Uninstall
 ```
