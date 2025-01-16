@@ -1,5 +1,5 @@
 # Docker Auto Scale on Debian
-This is simple sh scripts to scale docker container without the need of Kubernetes or Openshift.
+This is simple bash scripts to scale docker container without the need of Kubernetes or Openshift.
 Before running it all the container instance must be created before the script start.
 The script will start you instance according to your running container cpu and memory usage. 
 If the average is upper the max threshold it will start the next new instance. If the cpu and memory average are lower than the minimum threshold it will stop a container.

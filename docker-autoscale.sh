@@ -132,8 +132,13 @@ echo "Press Ctrl+C to stop"
 while true; do
     RUNNING_COUNT=$(get_running_containers)
     TOTAL_COUNT=$(get_all_containers)
-    CPU_AVG=$(get_avg_cpu)
-    MEM_AVG=$(get_avg_memory)
+    CPU_AVG="0"
+    MEM_AVG="0"
+
+    if [ "$RUNNING_COUNT" -gt 0 ]; then
+    	CPU_AVG=$(get_avg_cpu)
+    	MEM_AVG=$(get_avg_memory)
+    fi
 
     echo "Current status:"
     echo "Running containers: $RUNNING_COUNT/$TOTAL_COUNT"
